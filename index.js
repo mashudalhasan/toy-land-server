@@ -49,18 +49,18 @@ async function run() {
     });
 
     // sorting with price
-    // app.get("/toys", async (req, res) => {
-    //   console.log(req.query.email);
-    //   let query = {};
-    //   if (req.query?.email) {
-    //     query = { email: req.query.email };
-    //   }
-    //   const result = await productCollection
-    //     .find(query)
-    //     .sort({ price: 1 })
-    //     .toArray();
-    //   res.send(result);
-    // });
+    app.get("/toys", async (req, res) => {
+      console.log(req.query.email);
+      let query = {};
+      if (req.query?.email) {
+        query = { email: req.query.email };
+      }
+      const result = await productCollection
+        .find(query)
+        .sort({ price: 1 })
+        .toArray();
+      res.send(result);
+    });
 
     app.get("/toys/:id", async (req, res) => {
       const id = req.params.id;
