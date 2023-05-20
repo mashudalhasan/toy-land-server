@@ -41,6 +41,13 @@ async function run() {
       res.send(result);
     });
 
+    app.post("/products", async (req, res) => {
+      const newToy = req.body;
+      console.log(newToy);
+      const result = await productCollection.insertOne(newToy);
+      res.send(result);
+    });
+
     // sorting with price
     app.get("/toys", async (req, res) => {
       console.log(req.query.email);
@@ -79,10 +86,10 @@ async function run() {
       res.send(result);
     });
 
-    app.post("/products", async (req, res) => {
-      const newToy = req.body;
-      console.log(newToy);
-      const result = await productCollection.insertOne(newToy);
+    app.delete("/toys/:id", async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) };
+      const result = await productCollection.deleteOne(query);
       res.send(result);
     });
 
