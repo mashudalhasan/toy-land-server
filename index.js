@@ -41,12 +41,12 @@ async function run() {
       res.send(result);
     });
 
-    app.post("/products", async (req, res) => {
-      const newToy = req.body;
-      console.log(newToy);
-      const result = await productCollection.insertOne(newToy);
-      res.send(result);
-    });
+    // app.post("/products", async (req, res) => {
+    //   const newToy = req.body;
+    //   console.log(newToy);
+    //   const result = await productCollection.insertOne(newToy);
+    //   res.send(result);
+    // });
 
     // sorting with price
     app.get("/toys", async (req, res) => {
