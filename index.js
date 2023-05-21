@@ -35,7 +35,7 @@ async function run() {
         },
       ]);
       const query = {};
-      const cursor = productCollection.find(query).sort({ price: 1 });
+      const cursor = productCollection.find(query).sort({ price: -1 });
       const result = await cursor.toArray();
       res.send(result);
     });
@@ -49,13 +49,20 @@ async function run() {
 
     // sorting with price
     app.get("/toys", async (req, res) => {
+      await productCollection.updateMany({}, [
+        {
+          $set: {
+            price: { $toDouble: "$price" },
+          },
+        },
+      ]);
       let query = {};
       if (req.query?.email) {
         query = { email: req.query.email };
       }
       const result = await productCollection
         .find(query)
-        .sort({ price: 1 })
+        .sort({ price: -1 })
         .toArray();
       res.send(result);
     });
@@ -92,7 +99,7 @@ async function run() {
     });
 
     // Send a ping to confirm a successful connection
-    await client.db("admin").command({ ping: 1 });
+    // await client.db("admin").command({ ping: 1 });
     console.log(
       "Pinged your deployment. You successfully connected to MongoDB!"
     );
